@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sasta Chat</title>
+    <style>
+      body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+
+      #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+      #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
+      #input:focus { outline: none; }
+      #header > div > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; padding: 0.5rem 1rem;}
+      #header { padding: 0.5rem 1rem; flex-direction: row; justify-content: space-between; display: flex; flex-wrap: wrap; }
+      #headerstats {  padding: 0.5rem 1rem; flex-direction: column; justify-content: center; align-items: center; display: flex;  }
+      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
+      .otheruser { flex-direction: row; display: flex; justify-content: flex-start; }
+      .currentuser { flex-direction: row; display: flex; justify-content: flex-end; }
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages > div { padding: 0.5rem 1rem; }
+      #messages > div:nth-child(odd) { background: #efefef; }
+    </style>
+  </head>
+  <body>
+    <div id="header">
+      <div>
+        You: <button id="name" onclick="User.set()"></button>
+      </div>
+      <div id="headerstats">
+        <div id="status"></div>
+        <div id="channelStatus"></div>
+      </div>
+      <div>
+        Channel: <button id="channel" onclick="Channel.set()"></button>
+      </div>
+    </div>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <input id="input" autocomplete="off" /><button>Send</button>
+    </form>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+  <script src="lib.js" ></script>
+  <script src="script.js"></script>
+</html>
