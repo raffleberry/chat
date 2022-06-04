@@ -208,8 +208,6 @@ const Socket = {
   },
 
   join: function(newChannel) {
-    console.log(this.currentChannel);
-    console.log(newChannel);
     if (!this.currentChannel) {
       this.socket.emit('join', newChannel);
       this.currentChannel = newChannel;

@@ -1,5 +1,3 @@
-localStorage.setItem("debug", "*");
-
 Socket.init(Channel.get());
 
 User.get();
