@@ -1,2 +1,2 @@
 # chat
-Basic chat application made with sockets
+Basic chat application made with web sockets

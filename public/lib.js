@@ -128,12 +128,12 @@ const Messages = {
     msgList.replaceWith(newMsgList);
   },
   renderMsgBack: function(username, message) {
-    var msgList = document.getElementById('messages');
+    const msgList = document.getElementById('messages');
     const msgItem = this.createMsgElem(username, message);
     msgList.appendChild(msgItem);
   },
   renderMsgFront: function(username, message) {
-    var msgList = document.getElementById('messages');
+    const msgList = document.getElementById('messages');
     const msgItem = this.createMsgElem(username, message);
     msgList.prepend(msgItem);
   },
