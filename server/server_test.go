@@ -4,18 +4,15 @@ import (
 	"bytes"
 	"context"
 	"testing"
-	"time"
 
 	"github.com/raffleberry/chat/server"
 	"golang.org/x/net/websocket"
 )
 
 func TestWebSocks(t *testing.T) {
-	done := make(chan int, 1)
-	s := server.Start(done)
+	ready, s := server.Start()
 
-	// ha, ha, ha
-	time.Sleep(time.Second * 1)
+	<-ready
 	// -->
 	origin := "http://localhost/"
 	url := "ws://localhost:8080/echo"
@@ -48,8 +45,4 @@ func TestWebSocks(t *testing.T) {
 
 	s.Shutdown(context.Background())
 
-	r := <-done
-	if r != 0 {
-		t.Fatalf("Server returned %d", r)
-	}
 }

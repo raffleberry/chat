@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 	"io"
+	"net"
 	"net/http"
 
 	"golang.org/x/net/websocket"
@@ -18,28 +19,33 @@ func AddWebSocks() {
 }
 
 // start a http server and add web socks to it
-//
-// done = 1, if any error
-//
-// done = 0, no error
-func Start(done chan<- int) *http.Server {
+func Start() (<-chan bool, *http.Server) {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "Hello")
 	})
 
 	AddWebSocks()
 
-	server := http.Server{Addr: ":8080"}
+	ready := make(chan bool, 1)
 
+	server := http.Server{Addr: ":8080"}
 	go func() {
-		err := server.ListenAndServe()
+		defer close(ready)
+
+		l, err := net.Listen("tcp", ":8080")
+
+		if err != nil {
+			panic(err)
+		}
+
+		ready <- true
+
+		err = server.Serve(l)
 
 		if err != nil && err != http.ErrServerClosed {
 			fmt.Println(err.Error())
-			done <- 1
 		}
-		done <- 0
 	}()
 
-	return &server
+	return ready, &server
 }
